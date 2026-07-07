@@ -1,16 +1,27 @@
-
-
-
 <%- include('partials/header') %>
 <main>
-    <h1><%= title %></h1>
+        <h1><%= title %></h1>
+        
+        <p>Here are a few of our partner organizations:</p>
+        <ul>
 
-    <p>Here are a few of our partner organizations:</p>
-    <ul>
-        <li><img src="/images/brightfuture-logo.png" alt="BrightFuture Builders logo"><strong>BrightFuture Builders</strong>: info@brightfuture.org</li>
-        <li><img src="/images/greenharvest-logo.png" alt="GreenHarvest Growers logo"><strong>GreenHarvest Growers</strong>: contact@greenharvest.org</li>
-        <li><img src="/images/unityserve-logo.png" alt="UnityServe Volunteers logo"><strong>UnityServe Volunteers</strong>: hello@unityserve.org</li>
-    </ul>
-
+            <% organizations.forEach(organization => { %>
+                <li><img src="/images/<%= organization.logo_filename %>"alt="<%= organization.name %> logo"><strong><%= organization.name %></strong>: <%= organization.contact_email %><strong><%= organization.description %></strong></li>
+            <% }); %>
+        </ul>
 </main>
-<%- include('partials/footer') %> 
+<script>
+    const logButton = document.getElementById('logOrganizationsBtn');
+    if (logButton) {
+        logButton.addEventListener('click', async () => {
+            try {
+                const response = await fetch('/organizations/log');
+                const data = await response.json();
+                console.log('Server responded:', data);
+            } catch (error) {
+                console.error('Request failed:', error);
+            }
+        });
+    }
+</script>
+<%- include('partials/footer') %>
