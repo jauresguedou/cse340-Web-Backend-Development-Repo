@@ -3,6 +3,7 @@ import { fileURLToPath } from 'url';
 import path from 'path';
 import { testConnection } from './src/models/db.js';
 import { getAllOrganizations } from './src/models/organizations.js';
+import { getAllProjects } from './src/models/project.js';
 
 // Define the the application environment
 const NODE_ENV = process.env.NODE_ENV?.toLowerCase() || 'production';
@@ -58,9 +59,19 @@ app.get('/organizations/log', async (req, res) => {
 
 
 
+
 app.get('/projects', async (req, res) => {
+
+try{
+  const projects = await getAllProjects();
   const title = 'Service Projects';
-  res.render('projects', { title });
+  console.log('Projects fetched:', projects); // Log the projects to the console
+  res.render('projects', { title, projects });
+}catch (error) {
+  console.error('Failed to fetch projects:', error.message);
+  res.status(500).send('Internal Server Error');
+} 
+ 
 });
 
 app.get('/categories', async(req,res) =>{
