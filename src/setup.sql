@@ -63,3 +63,46 @@ VALUES
   (4, 'Home Repair for Elderly Residents', 'Repairing roofs and structural damage in homes belonging to elderly community members.', 'Ouidah Village', '2026-09-28'),
   (4, 'Community Well Rehabilitation', 'Restoring a broken well to provide clean water access to a rural community.', 'Allada Rural Area', '2026-10-12');
 
+CREATE TABLE category(
+   category_id SERIAL PRIMARY KEY,
+   category_name VARCHAR(50) NOT NULL
+   
+);
+
+
+CREATE TABLE service_project_category(
+   category_id INT NOT NULL REFERENCES category(category_id) ON DELETE CASCADE,
+   project_id INT NOT NULL REFERENCES  service_project(project_id) ON DELETE CASCADE,
+   PRIMARY KEY (project_id,category_id)
+   
+);
+
+
+
+
+INSERT INTO category (category_id,category_name)
+VALUES
+ (1,'Healthcare'),
+ (2,'Education'),
+ (3,'Environment');
+
+
+INSERT INTO service_project_category(project_id,category_id)
+
+VALUES
+	(1,1),
+  (2,1),
+	(3,2),
+	(4,3),
+	(5,1),
+	(6,3),
+	(7,3),
+	(8,2),
+	(8,3),
+	(9,3),
+	(10,3),
+	(11,2),
+	(12,3),
+	(13,1),
+	(14,1),
+	(15,1);

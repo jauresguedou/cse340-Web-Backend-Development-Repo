@@ -3,13 +3,15 @@
 <main>
     <h1><%= title %></h1>
 
-    <ul>
-        <li>Environmental</li>
-        <li>Educational</li>
-        <li>Community Service</li>
-        <li>Health and Wellness</li>
-    </ul>
-
+    <% if (categories.length > 0) { %>
+       <ul>
+            <% categories.forEach(category => { %>
+                <li><strong><%= category.category_name %></strong></li>
+            <% }); %>
+        </ul>
+    <% } else { %>
+        <p>No categories available.</p>
+    <% } %>
 </main>
 
 
