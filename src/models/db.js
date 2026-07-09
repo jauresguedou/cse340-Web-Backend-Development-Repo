@@ -1,6 +1,10 @@
 import 'dotenv/config';
 import { Pool } from 'pg';
 
+console.log("NODE_ENV:", process.env.NODE_ENV);
+console.log("DB_URL exists:", !!process.env.DB_URL);
+console.log("DATABASE_URL exists:", !!process.env.DATABASE_URL);
+
 /**
  * Connection pool for PostgreSQL database.
  * 
@@ -13,12 +17,11 @@ import { Pool } from 'pg';
  * postgresql://username:password@host:port/database
  */
 const pool = new Pool({
-    connectionString: process.env.DB_URL,
-    ssl: process.env.DB_URL?.includes('render.com')
-        ? { rejectUnauthorized: false }
-        : false,
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: false
+    }
 });
-
 /**
  * Common SSL Issue:
  *
