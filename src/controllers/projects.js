@@ -1,4 +1,4 @@
-import { getAllProjects } from './models/projects.js';
+import { getAllProjects } from '../models/projects.js';
 
 
 

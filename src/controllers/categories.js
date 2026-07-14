@@ -1,4 +1,4 @@
-import { getAllCategories } from './controllers/categories.js';
+import { getAllCategories } from '../models/categories.js';
 
 
 
