@@ -5,6 +5,7 @@ import { getAllProjects } from '../models/projects.js';
 
 
 
+
 const showOrganizationsPage = async (req, res) => {
     const organizations = await getAllOrganizations();
     const title = 'Our Partner Organizations';
