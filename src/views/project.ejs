@@ -8,6 +8,17 @@
         <p><strong>Date:</strong> <%= new Date(project.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) %></p>
         <p><strong>Location:</strong> <%= project.location %></p>
         <p><strong>Description:</strong> <%= project.description %></p>
+
+        <h4>Categories</h4>
+        <% if (categories && categories.length > 0) { %>
+            <div>
+                <% categories.forEach(category => { %>
+                    <a class="tag" href="/category/<%= category.category_id %>"><%= category.category_name %></a>
+                <% }) %>
+            </div>
+        <% } else { %>
+            <p>No categories found for this project.</p>
+        <% } %>
     <% } else { %>
         <p>No service project found.</p>
     <% } %>

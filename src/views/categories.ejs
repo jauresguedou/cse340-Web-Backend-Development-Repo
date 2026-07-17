@@ -6,13 +6,12 @@
     <% if (categories.length > 0) { %>
        <ul>
             <% categories.forEach(category => { %>
-                <li><strong><%= category.category_name %></strong></li>
+                <li><a href="/category/<%= category.category_id %>"><strong><%= category.category_name %></strong></a></li>
             <% }); %>
         </ul>
     <% } else { %>
         <p>No categories available.</p>
     <% } %>
 </main>
-
 
 <%- include('partials/footer') %>
