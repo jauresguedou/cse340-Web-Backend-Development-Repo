@@ -8,6 +8,8 @@
         <p><strong>Date:</strong> <%= new Date(project.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) %></p>
         <p><strong>Location:</strong> <%= project.location %></p>
         <p><strong>Description:</strong> <%= project.description %></p>
+        <p><a href="/edit-project/<%= project.project_id %>">Edit Project</a></p>
+
 
         <h4>Categories</h4>
         <% if (categories && categories.length > 0) { %>
