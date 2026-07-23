@@ -76,25 +76,70 @@ export {
 
 const assignCategoryToProject = async(projectId,categoryId) => {
      const query = `
-       INSERT INTO service_project_category (project_id,category_id)
-       VALUES($1, $2);
-       
-       
+       INSERT INTO service_project_category (project_id, category_id)
+       VALUES ($1, $2);
      `;
-     await db.query(query, [categoryId,projectId]);   
-}
+     await db.query(query, [projectId, categoryId]);
+};
 
-const updateCategoryAssignments = async (projectId,categoryIds) => {
+const updateCategoryAssignments = async (projectId, categoryIds) => {
   const deleteQuery = `
     DELETE FROM service_project_category
     WHERE project_id = $1;
-  
   `;
   await db.query(deleteQuery, [projectId]);
-  for (const categoryId of categoryIds) {
 
-     await assignCategoryToProject(categoryId,projectId);
+  for (const categoryId of categoryIds) {
+     await assignCategoryToProject(projectId, categoryId);
   }
-}
+};
 
 export {assignCategoryToProject,updateCategoryAssignments};
+
+
+
+
+
+const createCategory = async (name) => {
+    const query = `
+         INSERT INTO category (category_name)
+         VALUES ($1)
+         RETURNING category_id;
+    `;
+
+    const queryParams = [name];
+    const result = await db.query(query, queryParams);
+
+    if (result.rows.length === 0) {
+        throw new Error('Failed to create category');
+    }
+
+    if (process.env.ENABLE_SQL_LOGGING === 'true') {
+        console.log('Create new category with ID:', result.rows[0].category_id);
+    }
+
+    return result.rows[0].category_id;
+};
+
+const updateCategory = async (name, categoryId) => {
+    const query = `
+        UPDATE category
+        SET category_name = $1
+        WHERE category_id = $2
+        RETURNING category_id;
+    `;
+
+    const queryParams = [name, categoryId];
+    const result = await db.query(query, queryParams);
+
+    if (result.rows.length === 0) {
+        throw new Error('Category not found');
+    }
+
+    if (process.env.ENABLE_SQL_LOGGING === 'true') {
+        console.log('Update category with ID:', categoryId);
+    }
+};
+
+export { createCategory, updateCategory };
+

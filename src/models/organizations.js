@@ -1,3 +1,4 @@
+import { param } from 'express-validator';
 import db from './db.js'
 
 
@@ -113,3 +114,5 @@ const updateOrganization = async(organizationId,name,description,contactEmail,lo
 }
 
 export { updateOrganization};
+
+
